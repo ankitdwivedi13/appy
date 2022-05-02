@@ -1,0 +1,27 @@
+
+.toggle-arrow {
+  width: 21px;
+  height: 21px;
+  z-index: 1;
+  margin-left:-25px;
+  background: transparent url('../../../assets/images/arrow-header.svg') 0% 0% no-repeat padding-box;
+  opacity: 1;
+}
+
+.toggle-arrow-rotate {
+   transform: rotate(180deg);
+}
+.text-greyy{color:#556270
+}
+.navbar{padding:0rem 1rem!important;}
+
+.navbar .nav-item .nav-link {
+  padding: 28px 20px;
+  font-size: 14px;
+  color: #556270;
+  text-transform: uppercase;
+}
+.navbar .nav-item.active .nav-link {
+  background: #043b72;
+  color: #fff!important;
+}
