@@ -1,0 +1,50 @@
+html,body{
+    font-family: 'Poppins', sans-serif;
+}
+.home_text {
+    font-size: 21px;
+    font-weight: 300;
+    font-style: normal;
+}
+.custom_search {
+    max-width: 500px;
+}
+.custom_search .form-control {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #666;
+    height: 60px;
+}
+.custom_search .input-group-append {
+    border: none;
+}
+.input-group-text .fa.fa-search {
+    color: #106dc1;
+    font-size: 19px;
+}
+.input-group-text {
+    background-color: #fff;
+    border: none;
+    border-radius: 5px;
+}
+.ourProduct_title1 {
+    font-size: 21px;
+    font-weight: 700;
+    font-style: normal;
+    color: #4d4d4d;
+  }
+.home_card{
+    cursor: pointer;
+}
+.home_title{
+top: 126px;
+left: 114px;
+width: 447px;
+height: 33px;
+text-align: left;
+font: normal normal medium 24px/32px Poppins;
+letter-spacing: 0px;
+color: #2B2822;
+opacity: 1;
+}
