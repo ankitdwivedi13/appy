@@ -1,0 +1,592 @@
+// Global component styles
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+a {
+  &:focus {
+    outline: none;
+  }
+}
+
+// Main page wrapper
+#wrapper {
+  display: flex;
+  min-height: 100vh;
+  #content-wrapper {
+    //height: 100%;
+    width: 100%;
+    overflow-x: visible;
+    padding-top:100px;
+    #content {
+      flex: 1 0 auto;
+    }
+  }
+}
+
+// Set container padding to match gutter width instead of default 15px
+.container,
+.container-fluid {
+  width: 99% !important;
+  //padding-left: $grid-gutter-width;
+}
+
+// Scroll to top button
+.scroll-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 2rem;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: $white;
+  background: fade-out($gray-800, .5);
+  line-height: 46px;
+  &:focus,
+  &:hover {
+    color: white;
+  }
+  &:hover {
+    background: $gray-800;
+  }
+  i {
+    font-weight: 800;
+  }
+}
+.box-shadow {
+  box-shadow: 0 0.25rem 0.75rem rgb(0 0 0 / 5%);
+}
+.font-12{font-size:12px;}
+.navbar .btn-ms.btn-outline-primary {
+  padding: 7px 20px;
+  background-color: #efb129;
+  border-radius: 3px;
+  color: #2B2A22;
+  border: none;
+}
+.navbar .btn-ms.btn-outline-primary:hover {
+  background: transparent;
+  color: #efb129;
+  border:1.5px solid #efb129;
+}
+.home_card img {
+  padding: 15px;
+}
+.home_card .card-body {
+  padding: 17px;
+}
+.home_card .card-title {
+  font-size: 24px;
+  text-align: center;
+  color: #000000;
+  padding: 0px 10px;
+}
+.home_card .card-text {
+  font-size: 15px;
+  color: #4D4D4D;
+}
+.home_card .card-body img {
+  padding: 12px;
+}
+.card.home_card{
+  border:0px;
+}
+.custom_search .form-control:focus {
+  outline: 0!important;
+  border-color: initial;
+  box-shadow: none;
+}
+ .product_home_bg{background:url('../assets/images/D365_Banner.jpg');padding:25px 33% 20px 25px;color:#fff;background-position: right;
+   background-repeat: no-repeat;
+   background-size: cover;}
+   .product_home_bg .btn-ms.btn-outline-primary {
+    padding: 7px 20px;
+    border-color: #005aab;
+    color: #005aab;
+    text-transform: uppercase;
+    background: #fff;
+}
+.arrow_btn_img {
+  background: url('../assets/images/t_upload_arrow.svg');
+  width: 19px;
+  height: 17px;
+  background-size: 100% 100%;
+  display: inline-block;
+  margin-right: 7px;
+  position: relative;
+  top: 2px;
+}
+.btn.btn-outline-primary:hover .arrow_btn_img {
+  background: url('../assets/images/Arrow_white.svg');
+  width: 19px;
+  height: 17px;
+  background-size: 100% 100%;
+  display: inline-block;
+  margin-right: 7px;
+  position: relative;
+  top: 2px;
+}
+.Product_menu, .Product_menu li {
+  border-radius: 0;
+}
+.Product_menu {
+  list-style: none;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.Product_menu li:first-child {
+  padding-left: 20px;
+}
+
+.Product_menu .col {
+  border: 1px solid transparent;
+}
+.Product_menu li {
+  color: #64768a;
+  text-decoration: none;
+  padding: 20px 0 20px 50px;
+  background: #fff;
+  position: relative;
+  display: block;
+  height: 129px;
+  float: left;
+  cursor: pointer;
+}
+.Product_menu, .Product_menu li {
+  border-radius: 0;
+}
+.Product_menu li:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 68px solid transparent;
+  border-bottom: 61px solid transparent;
+  border-left: 30px solid #d7dade;
+  position: absolute;
+  top: 38%;
+  margin-top: -50px;
+  margin-left: 1px;
+  left: 100%;
+  z-index: 1;
+}
+.Product_menu li:after {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 68px solid transparent;
+  border-bottom: 61px solid transparent;
+  border-left: 30px solid #fff;
+  position: absolute;
+  top: 38%;
+  margin-top: -50px;
+  left: 100%;
+  z-index: 2;
+}
+.Product_menu.migrate li:after, .Product_menu.migrate li:before {
+  content: "";
+  display: block;
+  width: 0;
+  height: 0;
+  border-top: 65px solid transparent;
+  border-bottom: 65px solid transparent;
+  position: absolute;
+  top: 38%;
+  margin-top: -50px;
+  left: 100%;
+}
+.Product_menu.migrate li:after {
+  border-left: 30px solid #fff;
+  z-index: 2;
+}
+.Product_menu .col.active {
+  border: 1px solid #005aab;
+  background: #f3faff;
+}
+.Product_menu li:first-child {
+  padding-left: 20px;
+}
+.Product_menu.migrate li.active:before {
+  border-left: 30px solid #005aab;
+}
+.Product_menu.migrate li.active:after {
+  border-left: 30px solid #f3faff;
+}
+.Product_menu.migrate li:after {
+  border-left: 30px solid #fff;
+  z-index: 2;
+}
+.Product_menu li:last-child:before, .Product_menu li:last-child:after{
+  display:none;
+}
+.addBorder:before {
+  border-left: 30px solid #005aab!important;
+}
+.Productscreen_title {
+  font-size: 24px;
+  color: #000;
+}
+.breadcrumb {background: transparent;
+margin: 0px!important;
+padding: 10px 0 20px 0;
+}
+.breadcrumb .breadcrumb-item a{color:#858796;font-size:14px;}
+.breadcrumb .breadcrumb-item {color:#858796;font-size:14px;}
+.asset_icon, .connect_icon {
+  width: 86px;
+  height: 86px;
+  margin-right: 20px;
+}
+
+.Product_menu .media .media-body h5 {
+  font-size: 20px;
+  color: #000;
+}
+.Product_menu .media .media-body p {
+  font-size: 13px;
+  color: #333;
+  margin-bottom: 0;
+}
+.connect_icon{background:url('../assets/images/Connect_icon_static.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.asset_icon{background:url('../assets/images/Asses_icon_static.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.consult_icon{background:url('../assets/images/Consult_icon_static.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.migrate_icon{background:url('../assets/images/Migrate_icon_static.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active .connect_icon{background:url('../assets/images/Upload_active_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active .asset_icon{background:url('../assets/images/Assess_active_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active .consult_icon{background:url('../assets/images/Consult_active_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active .migrate_icon{background:url('../assets/images/Migrate_active_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active.success .connect_icon{background:url('../assets/images/Upload_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active.success .asset_icon{background:url('../assets/images/Assess_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active.success .consult_icon{background:url('../assets/images/Consult_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.active.success .migrate_icon{background:url('../assets/images/Migrate_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.success .connect_icon{background:url('../assets/images/Upload_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.success .asset_icon{background:url('../assets/images/Assess_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.success .consult_icon{background:url('../assets/images/Consult_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.col.success .migrate_icon{background:url('../assets/images/Migrate_success_icon.svg');background-size:100% 100%;width:86px;height:86px;margin-right:20px;}
+.faq_title {
+  font-size: 18px;
+  color: #4d4d4d;
+  font-weight: 700;
+  font-style: normal;
+}
+.faq_text {
+  font-size: 16px;
+  color: #4d4d4d;
+}
+
+.faq.btn-ms.btn-outline-primary {
+  padding: 0 7px;
+  border-color: #005aab;
+  color: #005aab;
+  border-radius: 0;
+  text-transform: uppercase;
+  background: #fff;
+}
+#accordion{
+  .card,.card-header{background: transparent;}
+  .card-body{background: #fff;}
+} 
+.Product_modal .modal-dialog .modal-header {
+  padding: 20px 35px 10px;
+  font-size: 20px;
+  color: #000;
+  font-weight: 700;
+  font-style: normal;
+}
+.Product_modal .modal-dialog .modal-body {
+  font-size: 14px;
+  color: #4d4d4d;
+}
+
+.Product_modal .modal-dialog .modal-body {
+  padding: 25px 35px;
+}
+.Product_modal .modal-dialog .modal-body ul {
+  padding-left: 20px;
+}
+.Product_modal .modal-header button:focus {
+  outline: none!important;
+}
+.checkboxcont {
+  display: block;
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  margin: 0;
+}
+.checkboxcont input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  position: absolute;
+  top: 3px;
+  left: 0;
+  height: 18px;
+  width: 18px;
+  background-color: #d8d8d8;
+}
+.Product_modal .modal-footer {
+  padding-top: 0;
+  justify-content: center;
+  border-top: 0;
+  padding-bottom: 20px;
+}
+
+.OrangeColour{
+  border-top: 2px solid #FC6D1D !important;
+}
+.report{
+  color: #707070;
+  font: normal normal normal 14px/17px Lato ;
+  text-align: left;
+  margin-bottom: -5px;
+  padding-top: 15px;
+}
+.cost_text{
+  color: #707070;
+  font: normal normal normal 14px/17px Lato ;
+  text-align: left;
+  margin-top: 1px;
+  padding-bottom: 20px;
+}
+.bottom_text{
+  padding-top: 10px;
+}
+.report_header{
+  color: #707070;
+  font: normal normal normal 15px/17px Lato ;
+}
+.padding{
+  padding-bottom: 16px;
+}
+
+.text-center {
+  text-align: center!important;
+}
+
+ /* The radio */
+ .radio {
+ 
+  /*display: block;*/
+ position: relative;
+ padding-left: 30px;
+ margin-bottom: 0px;
+ cursor: pointer;
+ 
+ -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+ user-select: none
+}
+
+/* Hide the browser's default radio button */
+.radio input {
+ position: absolute;
+ opacity: 0;
+ cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkround {
+
+ position: absolute;
+ top: -3px;
+ left: 0;
+ height: 18px;
+ width: 18px;
+ background-color: #fff ;
+ border-color:#A7A7A7;
+ border-style:solid;
+ border-width:1px;
+  border-radius: 50%;
+}
+
+
+/* When the radio button is checked, add a blue background */
+.radio input:checked ~ .checkround {
+ background-color: #fff;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkround:after {
+ content: "";
+ position: absolute;
+ display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.radio input:checked ~ .checkround:after {
+ display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.radio .checkround:after {
+  left:3px;
+ top: 3px;
+ width: 10px;
+ height: 10px;
+ border-radius: 50%;
+ background:#043B72;
+}
+  /* custom checkbox */
+  .checkboxcont {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+      margin: 0px 0 0px 0;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkboxcont input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  
+  /* Customised checkbox*/
+  .checkboxcont1 {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+   
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkboxcont1 input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #d8d8d8;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkboxcont:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkboxcont input:checked ~ .checkmark {
+    background-color: #043B72;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkboxcont input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkboxcont .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .express1_mig_icon{
+    background:url('../assets/images/AX2012_static.svg');width:86px;height:86px;background-size:100% 100%;margin:12px auto;
+}
+.express_mig_icon{
+  background:url('../assets/images/AX2012_static.svg');width:86px;height:86px;background-size:100% 100%;margin:12px auto;
+}
+.active .express1_mig_icon{
+  background:url('../assets/images/choose_asses_active.svg');width:86px;height:86px;background-size:100% 100%;margin:12px auto;
+}
+.active .express_mig_icon{
+background:url('../assets/images/choose_asses_active.svg');width:86px;height:86px;background-size:100% 100%;margin:12px auto;
+}
+.Product_modal .card-deck {
+  padding: 0 18px;
+}
+.Product_modal .card-deck .card {
+  cursor: pointer;
+  border:0px;
+}
+.Product_modal .card-deck .card .card-body h5 {
+  font-size: 18px;
+  color: #000;
+  font-weight: 700;
+  font-style: normal;
+}
+.Product_modal .card-deck .card .card-body p {
+  font-size: 14px;
+}
+.Product_modal .card-deck .card.active .card-body {
+  border: 1px solid #005aab!important;
+  background: #f3faff;
+}
+.upload_screen_main .card{
+  border:none;border-radius: 0px;
+
+}
+.mrgtmt{
+  margin:-2px 2px 0 0;
+}
+table.dx-datagrid-table tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+@media print {
+  *{color:red;
+    background: gray;
+}
+body{color:red;
+  background: gray;
+}
+}

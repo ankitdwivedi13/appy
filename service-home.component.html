@@ -1,0 +1,189 @@
+<div class="row">
+    <div class="col-12">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/home">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Services</li>
+        </ol>
+      </nav>
+    </div> 
+  </div>
+  <div class="row">
+    <div class="col-md-7">
+      <h3 class="Productscreen_title mb-4">Lotus Domino Migration Process</h3>
+    </div>
+  <div class="col-md-5 text-right">
+      <button type="submit" class="btn btn-ms btn-outline-primary" (click)="handleDashboard()"> <i class="fas fa-th-large mr-1"></i> Dashboard</button>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-12">
+      <ul class="Product_menu migrate">
+        <li class="col col1 active" (click)="setactive('upload')" [ngClass]="{'active' : active_tab == 'upload' , 'addBorder' : active_tab == 'asses' , 'success' : uploadSuccess == true }">
+          <div class="media">
+            <!-- <div class="connect_icon"></div> -->
+            <div class="media-body align-self-center">
+              <h5 class="mt-0">Upload</h5>
+            </div>
+          </div>
+        </li>
+        <li class="col col2" (click)="setactive('asses')" [ngClass]="{'active' : active_tab == 'asses' , 'addBorder' : active_tab == 'consult', 'success' : clientStatus.isNew == false }">
+          <div class="media">
+            <div class="circle"></div>
+            <div class="media-body align-self-center">
+              <h5 class="mt-0">Assess</h5>
+            </div>
+          </div>
+        </li>
+        <li class="col col3" (click)="setactive('consult')" [ngClass]="{'active' : active_tab == 'consult' , 'addBorder' : active_tab == 'migrate' , 'success' : clientStatus.consultingStatus == 5 }">
+          <div class="media">
+            <div class="consult_icon"></div>
+            <div class="media-body align-self-center">
+              <h5 class="mt-0">Consult</h5>
+            </div>
+          </div>
+        </li>
+        <li class="col col4" (click)="setactive('migrate')" [ngClass]="{'active' : active_tab == 'migrate' }">
+          <div class="media">
+            <div class="migrate_icon"></div>
+            <div class="media-body align-self-center">
+              <h5 class="mt-0">Migrate</h5>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div *ngIf="active_tab == 'upload'">
+    <app-upload-file [Version]=(version)></app-upload-file>
+  </div>
+  <div *ngIf="active_tab == 'asses'">
+    <app-assessmenttab [Version]=(version)></app-assessmenttab>
+  </div>
+  <div *ngIf="active_tab == 'consult' && clientStatus.isRequestedConsulting">
+    <app-consult-tab></app-consult-tab>
+  </div>
+  <div *ngIf="active_tab == 'migrate' && clientStatus.isRequestedMigration">
+    <app-data-upgrade></app-data-upgrade>
+  </div>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="onemorestepmodal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div>
+          <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true"><img src="assets/images/t_popupClose.svg" width="24" height="24"></span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img class="my-3" src="../../../assets/images/alert_icon1.svg">
+          <p style="font-size:16px;font-weight:bold;">One More Step to Go</p>
+          <p class="font-14 text-center">Please upload the files to complete the assessment</p>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for dashboard -->
+  <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#dashboardModal" #consultingModal>Modal</button>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="dashboardModal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="popupclose">
+          <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true"><img src="assets/images/t_popupClose.svg" width="24" height="24"></span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img class="my-3" src="../../../assets/images/alert_icon1.svg">
+          <p style="font-size:16px;font-weight:bold;">Please upload the zip file having information related to your Domino Application</p>
+          <p class="font-14 text-center">Refer <a class="instructionDoc" title="Click here to open the assessment instruction document" data-toggle="modal" (click)="openInstructionDoc()" data-target=".instruction-modal">Instruction Document</a> here</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade instruction-modal" data-backdrop="static" tabindex="-1" role="dialog" style="padding-left:17px" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="max-width:95%;height: 80%;">
+      <div class="modal-content" style="height: 115%; margin-top: 30px;">
+        <div class="modal-header">
+          <h5 class="modal-title" id="instructionModalLongTitle">Assessment Instructions</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="text-center text-black" style="margin-top: 20%; display: none;" id="Loader">
+            <i class="fa fa-spinner fa-spin"></i> Loading...
+          </div>
+          <ng2-pdfjs-viewer #pdfViewerOnDemand [showSpinner]="true" [useOnlyCssZoom]="true" zoom="100" [errorOverride]="true" errorMessage="There is an error occurred while loading the document, please try again later." [openFile]="false" [viewBookmark]="false"></ng2-pdfjs-viewer>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for request -->
+  <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#consultingModal" #consultingModal>Modal</button>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="consultingModal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="popupclose">
+          <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true"><img src="assets/images/t_popupClose.svg" width="24" height="24"></span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img class="my-3" src="../../../assets/images/alert_icon1.svg">
+          <p style="font-size:16px;font-weight:bold;">Please request for Consulting</p>
+          <p class="font-14 text-center">Click on ok to go back to request</p>
+          <button type="button" class="btn btn-primary text-uppercase" (click)="movetoReport('report')">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for migrationrequest -->
+  <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#consultingModal" #consultingModal>Modal</button>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="migrationModal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="popupclose">
+          <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+            <span aria-hidden="true"><img src="assets/images/t_popupClose.svg" width="24" height="24"></span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <img class="my-3" src="../../../assets/images/alert_icon1.svg">
+          <h4 style="font-size:16px;font-weight:bold;">{{info.popup2Text}}</h4><p></p>
+          <!-- <p class="font-14 text-center">Click on ok to go back to initiate</p> -->
+          <button type="button" class="btn btn-primary text-uppercase" (click)="movetoConsult('consult')">ok</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+   <!-- modal for migrationrequest and consultrequest -->
+   <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#consultingModal" #consultingModal>Modal</button>
+
+   <div class="modal fade Product_modal" data-backdrop="static" id="migration_Modal" tabindex="-1" role="dialog" aria-labelledby="instructionModalLabel" aria-hidden="true">
+     <div class="modal-dialog modal-sm modal-dialog-centered">
+       <div class="modal-content">
+         <div class="popupclose">
+           <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+             <span aria-hidden="true"><img src="assets/images/t_popupClose.svg" width="24" height="24"></span>
+           </button>
+         </div>
+         <div class="modal-body text-center">
+           <img class="my-3" src="../../../assets/images/alert_icon1.svg">
+           <h4 style="font-size:16px;font-weight:bold;">{{info.popup1}}</h4><p></p>
+           <!-- <p class="font-14 text-center">Click on ok to go back to request</p> -->
+           <button type="button" class="btn btn-primary text-uppercase" (click)="movetoReport('report')">ok</button>
+         </div>
+       </div>
+     </div>
+   </div>
