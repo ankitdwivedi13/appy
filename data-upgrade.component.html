@@ -1,0 +1,585 @@
+<div>
+
+  <!--<app-breadcrumb-implementation></app-breadcrumb-implementation>-->
+  <!-- Page Heading -->
+  <!-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h4 mb-0 text-primary text-black">Code Upgrade</h1>
+  </div> -->
+
+  <!-- Content Row -->
+  <div class="row">
+
+    <!-- Content Column -->
+    <div class="col-12">
+
+      <!-- Illustrations -->
+      <div class="card mb-3 border-0 rounded-0">
+        <div class="card-header py-3 rounded-0" style="height: 70px;">
+          <div class="row">
+            <div class="col-lg-6">
+              <h6 class="m-0 font-weight-bold text-primary text-black">List of Code Upgrade</h6>
+            </div>
+            <!-- <div [hidden]=true class="col-lg-2" *ngIf="automaticType && showcount">
+              <p class="m-0 text-primary text-black">Success: {{success}} out of {{Array?.length}}</p>
+              <p class="m-0 text-primary text-black">Failed: {{failed}} out of {{Array?.length}}</p>
+            </div> -->
+            <div *ngIf="automaticType" class="row col-lg-6">
+              <div class="row" id="codecorrection">
+                <div class="" style="margin-left: 5px;">
+                  <button type="button" style=" border-color: #115DA9 !important;padding: 0.2rem"
+                    class="btn upgradebutton notyetClicked" data-toggle="modal" data-target="#Modalxml" [disabled]="isLoading==true">Upload
+                    ErrorXml</button>
+                </div>
+                <div class="" style="margin-left: 5px;">
+                  <button type="button" style=" border-color: #115DA9 !important;padding: 0.2rem"
+                    class="btn upgradebutton notyetClicked" (click)="CodeRepos()" [disabled]="isLoading==true">Code Repository </button>
+                </div>
+                <div class="" style="margin-left: 5px;">
+                    <button type="button" style=" border-color: #115DA9 !important;padding: 0.2rem"
+                    class="btn upgradebutton codeCorrectionBtn" (click)="Reupgrade()" [disabled]="isLoading==true"><span class="spinner"><i class='fa fa-spinner fa-spin'
+                      *ngIf="reupgrade"></i></span>Code Correction</button>
+                </div>
+              </div>
+              <!-- <div class="col-lg-3 ml-auto">
+                <button type="button" style=" border-color: #115DA9 !important;padding: 0.2rem"
+                    class="btn upgradebutton notyetClicked " type="button" data-toggle="collapse" data-target="#codecorrection" aria-expanded="false" aria-controls="codecorrection"
+                    >Code Correction </button>
+              </div> -->
+              </div>
+          </div>
+        </div>
+        <div class="card-body dx-viewport">
+          <div *ngIf="manualType">
+            <dx-data-grid id="gridContainer" [dataSource]="datauprade" [remoteOperations]="false"
+              [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true"
+              (onDataErrorOccurred)="saveGridInstance($event)" (onToolbarPreparing)="onToolbarPreparing($event)">
+
+
+              <dxo-paging [pageSize]="10"></dxo-paging>
+              <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]" [showInfo]="true"
+                infoText="Page {0} of {1} ({2} items)" [showNavigationButtons]="true"></dxo-pager>
+              <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true" [width]="250"></dxo-search-panel>
+              <dxo-group-panel [visible]="false"></dxo-group-panel>
+              <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+              <dxo-load-panel [enabled]="true">
+              </dxo-load-panel>
+              <dxi-column dataField="elementGroup" caption="Manual" [groupIndex]="0"
+                groupCellTemplate="groupCellTemplate"></dxi-column>
+              <dxi-column dataField="aotName" caption="Object" cellTemplate="CellTemplate"></dxi-column>
+              <div *dxTemplate="let data of 'groupCellTemplate'">
+                {{data.key}}
+
+              </div>
+              <div *dxTemplate="let data of 'CellTemplate'">
+                <a href="javascript:void(0)" style="text-decoration:none"
+                  [ngStyle]="{'pointer-events': (data.key.elementGroup =='Macros' || data.key.elementGroup =='Queries') ? 'none' : 'default'}"
+                  (click)="details(data);">{{data.value}}</a>
+              </div>
+
+              <div *dxTemplate="let data of 'beforeButtons'">
+                <button type="button" style=" border-color: #115DA9 !important; border-right:none;padding:0.2rem"
+                  class="btn manualButton notClicked manualClicked " [ngClass]="{'buttonClicked':manualType==true}"
+                  (click)="manualClick($event)">Manual</button>
+                <button type="button" style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem"
+                  class="btn automaticbutton notClicked " [ngClass]="{'buttonClicked':automaticType==true}"
+                  (click)="automaticClick($event)">Automatic </button>
+
+              </div>
+            </dx-data-grid>
+          </div>
+
+
+
+          <div *ngIf="automaticType">
+            <dx-data-grid id="gridContainer" [dataSource]="datauprade" [remoteOperations]="false"
+              [allowColumnReordering]="true" [rowAlternationEnabled]="true" [showBorders]="true"
+              (onSelectionChanged)="saveGridInstance($event)" (onToolbarPreparing)="onToolbarPreparing($event)"
+              [(selectedRowKeys)]="selectedaotNames" (onEditorPreparing)="onEditorPreparing($event)">
+              <dxo-header-filter [visible]="true"></dxo-header-filter>
+              <dxo-paging [pageSize]="10"></dxo-paging>
+              <dxo-selection mode="multiple" showCheckBoxesMode="always" [value]="true"></dxo-selection>
+
+              <dxo-pager [showPageSizeSelector]="true" [allowedPageSizes]="[10, 25, 50, 100]" [showInfo]="true"
+                infoText="Page {0} of {1} ({2} items)" [showNavigationButtons]="true"></dxo-pager>
+              <dxo-search-panel [visible]="true" [highlightCaseSensitive]="true" [width]="250"></dxo-search-panel>
+              <dxo-group-panel [visible]="false"></dxo-group-panel>
+              <dxo-grouping [autoExpandAll]="true"></dxo-grouping>
+              <dxo-load-panel [enabled]="true">
+              </dxo-load-panel>
+              <dxi-column dataField="elementGroup" caption="Manual" [groupIndex]="0"
+                groupCellTemplate="groupCellTemplate"></dxi-column>
+              <dxi-column dataField="aotName" caption="Object" [allowHeaderFiltering]="false"
+                cellTemplate="CellTemplate"></dxi-column>
+              <dxi-column dataField="codeUpgradeStatus" caption="Status"
+                [allowSorting]="false" [width]="140" cellTemplate="statusTemplates" alignment="center"></dxi-column>
+
+              <div *dxTemplate="let data of 'groupCellTemplate'">
+                {{data.key}}
+
+              </div>
+              <div *dxTemplate="let data of 'CellTemplate'">
+                <a href="javascript:void(0)" style="text-decoration:none"
+                  [ngStyle]="{'pointer-events': (data.key.elementGroup =='Macros' || data.key.elementGroup =='Queries') ? 'none' : 'default'}"
+                  (click)="details(data);">{{data.value}}</a>
+
+              </div>
+
+              <div *dxTemplate="let data of 'beforeButtons'" class="dropdown">
+                <button type="button" style=" border-color: #115DA9 !important; border-right:none;padding:0.2rem"
+                  class="btn manualButton notClicked manualClicked " [ngClass]="{'buttonClicked':manualType==true}"
+                  (click)="manualClick($event)">Manual</button>
+                <button type="button" style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem"
+                  class="btn automaticbutton notClicked " [ngClass]="{'buttonClicked':automaticType==true}"
+                  (click)="automaticClick($event)" data-toggle="dropdown">Automatic <span class="fa fa-caret-down"
+                    style="color: white;margin-left:0.2em"></span></button>
+                <ul class="dropdown-menu" style="background: transparent;
+                  border: 0px;top:-9px!important;">
+                  <li><button class="btn buttonClicked " (click)="fileupload($event)" [disabled]="isLoading==true"
+                      style="border-color: #115DA9 !important;border-right: none;padding: 0.2rem;">Upload File</button></li>
+                </ul>
+              </div>
+
+              <div *dxTemplate="let data of 'afterButtons'">
+                <button type="button" style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem"
+                  class="btn upgradebutton notyetClicked" [ngClass]="{'button':isLoading==true && upgraderesponse}"
+                  (click)="CodeUpgrade($event)" [disabled]="processing==true"><span class="spinner"><i
+                      [ngClass]="{'fa fa-spinner fa-spin':isLoading==true}"></i></span>Code Upgrade</button>
+              </div>
+
+              <div *dxTemplate="let data of 'Repo'">
+                <button [hidden]="(clientStatus.devOpsURL == null || clientStatus.devOpsURL == '')" type="button"
+                  style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem"
+                  class="btn upgradebutton notyetClicked" [disabled]="isLoading==true" (click)='OpenModel_filestoRepo($event)'><span class="spinner"><i
+                    [ngClass]="{'fa fa-spinner fa-spin':processing==true}"></i></span>Add To Repo</button>
+              </div>
+
+              <div *dxTemplate="let data of 'addButton'">
+                <button type="button" style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem"
+                  class="btn upgradebutton addButton" (click)='inputModel($event)' [disabled]="isLoading==true">Add+</button>
+              </div>
+
+              <div *dxTemplate="let data of 'Buttons'">
+                <button type="button" style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem"
+                  class="btn upgradebutton notyetClicked" (click)="openModal()" [disabled]="isLoading==true">{{buttomHeader}}</button>
+              </div>
+
+              <div *dxTemplate="let data of 'icon'">
+                <img class="info-icon" src="assets/images/info-icon.svg" alt="info icon"
+                  title="Click here to download DevOps instruction document" (click)="downloadDoc()"/>
+              </div>
+
+              <div *dxTemplate="let data of 'icon2'">
+                <i class="fa fa-download downloadIcon" style="cursor:pointer" (click)="downloadXml()"></i>
+              </div>
+
+              <div *dxTemplate="let data of 'statusTemplates'" class="status-icons">
+                <div [ngSwitch]="data.value">
+                  <div *ngSwitchCase="'Upgrade Failed'">
+                    <img src="assets/images/cancel.svg" title="Code Upgrade Failed">
+                  </div>
+                  <div *ngSwitchCase="'Upgrade Success'">
+                    <img src="assets/images/success.svg" title="Code Upgrade Success">
+                  </div>
+                  <div *ngSwitchCase="'Upgrade InProgress'">
+                    <img src="assets/images/process.svg" title="Code Upgrade Inprogress">
+                  </div>
+                  <div *ngSwitchCase="'Migration Failed'">
+                    <img src="assets/images/cancel.svg" title="Code Migration Failed">
+                  </div>
+                  <div *ngSwitchCase="'Migration Success'">
+                    <img src="assets/images/success.svg" title="Code Migration Success">
+                  </div>
+                  <div *ngSwitchCase="'Manual'">
+                    <img src="assets/images/process.svg" title="Code Migration As Manual">
+                  </div>
+                  <div *ngSwitchCase="'USR layer file not found'">
+                    <i class="fa fa-times-circle" title="USR layer file not found"></i>
+                  </div>
+                  <div *ngSwitchCase="'SYS layer file not found'">
+                    <i class="fa fa-times" title="SYS layer file not found"></i>
+                  </div>
+                  <div *ngSwitchDefault>
+                    <img src="assets/images/yet to upload.svg" title="Yet to Upgrade">
+                  </div>
+                </div>
+              </div>
+
+            </dx-data-grid>
+
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- popup for upload aot -->
+<button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#Modal"
+  #consultingModal>Modal</button>
+
+<div class="modal fade Product_modal" data-backdrop="static" id="AOTModal" tabindex="-1" role="dialog"
+  aria-labelledby="ModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" style="max-height: 90vh;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="h5 mb-2 fontt-16B">Upload AOT</h1>
+        <!-- <button type="button" class="close" data-dismiss="modal" (click)="closeAOT()">&times;</button> -->
+      </div>
+      <div class="modal-body">
+        <!-- <div class="col-12 pb-3 blu_text">
+          <span style="font-size:17px;" (click)="openDoc()">View Instruction Document</span>
+      </div> -->
+        <app-upload-aotfile (uploadresponse)="getresponse($event)"></app-upload-aotfile>
+        <button type="submit" class="btn btn-ms btn-outline-primary float-right" data-dismiss="modal"
+          (click)="closeAOT()">Back</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal for devops button -->
+<button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#AzureModal"
+  #AzureModal>Modal</button>
+
+<div class="modal fade Product_modal" data-backdrop="static" id="AzureModal" #AzureModal tabindex="-1" role="dialog"
+  aria-labelledby="instructionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create Project</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="close()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <label for="url" class="form-label">Devops url</label>
+            <input formControlName="url" class="form-control" id="url">
+          </div>
+          <div class="validationstyle"
+            *ngIf="!form.controls['url'].valid && (form.controls['url']?.touched || form.controls['url']?.dirty)">
+            <div [hidden]="!form.controls['url'].hasError('required')">
+              Devops url is required
+            </div>
+            <div [hidden]="!form.controls['url'].hasError('pattern')">
+              Please enter valid url
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="name" class="form-label">Project Name</label>
+            <input formControlName="name" class="form-control" id="name">
+          </div>
+          <div class="validationstyle"
+            *ngIf="!form.controls['name'].valid && (form.controls['name']?.touched || form.controls['name']?.dirty)">
+            <div [hidden]="!form.controls['name'].hasError('required')">
+              Project Name is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="form-label">Project Description</label>
+            <input formControlName="description" class="form-control" id="description">
+          </div>
+          <div class="validationstyle"
+            *ngIf="!form.controls['description'].valid && (form.controls['description']?.touched || form.controls['description']?.dirty)">
+            <div [hidden]="!form.controls['description'].hasError('required')">
+              Project description is required
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="token" class="form-label">Personal Access Token</label>
+            <input type="password" formControlName="token" class="form-control" id="token">
+          </div>
+          <div class="validationstyle"
+            *ngIf="!form.controls['token'].valid && (form.controls['token']?.touched || form.controls['token']?.dirty)">
+            <div [hidden]="!form.controls['token'].hasError('required')">
+              Token is required
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="button" class="btn btn-primary text-uppercase" (click)="onSubmit()">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- model for codeUpgrade  -->
+<button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal"
+  data-target="#messageModel" #messageModel>Modal</button>
+
+<div class="modal fade Product_modal" data-backdrop="static" id="messageModel" #message tabindex="-1" role="dialog"
+  aria-labelledby="instructionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <p>It is recommended to create a project in DevOps to setup the pipeline.</p>
+        <p>Do you want to proceed with Code Migration without DevOps Project?</p>
+        <div class="float-right">
+          <button type="button" class="btn btn-primary text-uppercase" (click)="onProceed()">Proceed</button>&nbsp;
+          <button type="button" class="btn btn-primary text-uppercase" data-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- model for codeUpgrade modelname -->
+<button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#textModal"
+  #textModal>Modal</button>
+
+<div class="modal fade Product_modal" data-backdrop="static" id="textModal" #textModal tabindex="-1" role="dialog"
+  aria-labelledby="instructionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="h5 mb-2 fontt-16B">Code Upgrade</h1>
+        <button type="button" class="close" data-dismiss="modal" (click)="closeModel()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="textform">
+          <div class="form-group">
+            <label for="name" class="form-label">Model Name</label>
+            <input formControlName="modelName" class="form-control" id="url">
+          </div>
+          <div class="validationstyle"
+            *ngIf="!textform.controls['modelName'].valid && (textform.controls['modelName']?.touched || textform.controls['modelName']?.dirty)">
+            <div [hidden]="!textform.controls['modelName'].hasError('required')">
+              Model name is required
+            </div>
+          </div>
+          <div class="float-right">
+            <button [disabled]="!textform.valid" type="button" class="btn btn-primary text-uppercase"
+              (click)="onSubmitUpgrade()">Submit</button>&nbsp;
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal for adding files to repo -->
+<button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal"
+  data-target="#AddFiles_Model" #AddFiles_Model>Modal</button>
+
+<div class="modal fade Product_modal" data-backdrop="static" id="AddFiles_Model" tabindex="-1" role="dialog"
+  aria-labelledby="instructionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm modal-dialog-centered">
+    <div class="modal-content">
+      <div class="popupclose">
+        <button type="button" class="close" aria-label="Close" data-dismiss="modal">
+          <span aria-hidden="true"><img src="assets/images/t_popupClose.svg" width="24" height="24"></span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <img class="my-3" src="../../../assets/images/alert_icon1.svg">
+        <p class="font-14 text-center">Please verify and delete files if already exist in the repository.</p>
+        <p class="font-14 text-center">Click 'OK' to add files to the repository.</p>
+        <button type="button" class="btn btn-primary text-uppercase" (click)="AddFiles_Repo()">ok</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!--Repository Model-->
+  <div class="modal fade Product_modal" data-backdrop="static" id="textRepos" #textRepos tabindex="-1" role="dialog"
+    aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="h5 mb-2 fontt-16B">Repository</h1>
+          <button type="button" class="close" data-dismiss="modal" (click)="closeModel()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div id="tabs">
+            <dx-tabs #apiTabs [dataSource]="tabs" [selectedIndex]="0" (onItemClick)="selectTab($event)"></dx-tabs>
+            <div *ngIf="tabdata == 'content'">
+              <dx-data-grid id="reposgridContainer" [dataSource]="contentds" [showBorders]="true"
+                (onInitNewRow)="onInitNewRow($event)" (onRowInserted)="logEvent($event,'RowInserted')"
+                (onRowUpdated)="logEvent($event,'RowUpdated')" (onRowRemoved)="logEvent($event,'RowRemoved')"
+                (onSaved)="logEvent($event,'Saved')" (onToolbarPreparing)="onContentToolbar($event)" (onExporting)="onExportingRepo($event)">
+                <dxo-paging [enabled]="true" [pageSize]="8"></dxo-paging>
+                <dxo-pager [showInfo]="true" infoText="Page {0} of {1} ({2} items)"></dxo-pager>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-editing mode="form" [allowUpdating]="true" [allowDeleting]="true" [allowAdding]="true">
+                  <dxo-popup title="Repository Info" [showTitle]="true" [width]="700" [height]="400">
+                  </dxo-popup>
+                  <dxo-form>
+                    <dxi-item itemType="group" [colCount]="1" [colSpan]="1">
+                      <!-- <dxi-item dataField="id" [visible]="false"></dxi-item> -->
+                      <dxi-item dataField="version"></dxi-item>
+                      <dxi-item dataField="objectType" [editorOptions]="{ width: 300 }"></dxi-item>
+                      <dxi-item dataField="objectName" [editorOptions]="{ width: 300 }"></dxi-item>
+                      <dxi-item dataField="componentName" [editorOptions]="{ width: 300 }"></dxi-item>
+                      <dxi-item dataField="axaptaContent" [editorOptions]="{ width: 300 }"></dxi-item>
+                      <dxi-item dataField="dynamic365Content" [editorOptions]="{ width: 300 }"></dxi-item>
+                      <!-- <dxi-item dataField="status" [visible]="false"></dxi-item> -->
+                    </dxi-item>
+                  </dxo-form>
+                </dxo-editing>
+                <dxi-column dataField="id" caption="Versionid" datatype="number" [visible]="false"></dxi-column>
+                <dxi-column dataField="version" caption="Version" datatype="number">
+                  <dxo-lookup [dataSource]="versions" displayExpr="Name" valueExpr="ID">
+                  </dxo-lookup>
+                </dxi-column>
+                <dxi-column dataField="objectType" [width]="120"></dxi-column>
+                <dxi-column dataField="objectName" [allowHeaderFiltering]="false"></dxi-column>
+                <dxi-column dataField="componentName" [allowHeaderFiltering]="false"></dxi-column>
+                <dxi-column dataField="axaptaContent" [allowHeaderFiltering]="false"></dxi-column>
+                <dxi-column dataField="dynamic365Content" [allowHeaderFiltering]="false"></dxi-column>
+                <dxi-column dataField="status" datatype="number" [visible]="false"> </dxi-column>
+                <div *dxTemplate="let data of 'beforeButtons'">
+
+                  <button type="button" style=" border-right: none;padding: 0.2rem; margin-top: 5px;"
+                  id="upload" class="btn btn-warning py-2 px-4" data-target="#RepoModal" data-toggle="modal" (click)="toggleRepository()"> Upload Repo </button>
+                  <!-- <ul class="dropdown-menu" style="background: transparent;
+                    border: 0px;top:-9px!important;">
+                    <li><a class="btn buttonClicked"
+                        style="border-color: #115DA9 !important;border-right: none;padding: 0.2rem;">Upload</a></li>
+                    <li><a class="btn buttonClicked" (click)="downloadTemplate($event)"
+                        style="border-color: #115DA9 !important;border-right: none;padding: 0.2rem; margin-top: -5px; margin-left: -20px;"><span><i class="fa fa-download"></i></span>Template</a></li>
+                  </ul> -->
+
+                  <button type="button" title="Download Not Exists Objects" style=" border-right: none;padding: 0.2rem; margin-top: 5px; margin-left: 0.4em;
+                      padding-left: 1em;" class="btn btn-warning py-2 px-4 " (click)="DownloadNotExists()"><span><i
+                        class="fa fa-download"></i></span>Not Exists Object</button>
+                </div>
+                <dxo-export [enabled]="true"></dxo-export>
+              </dx-data-grid>
+            </div>
+            <div *ngIf="tabdata == 'errors'">
+              <dx-data-grid id="errorgridContainer" [dataSource]="errorsds" [allowColumnReordering]="true"
+                [showBorders]="true" (onSelectionChanged)="selectionChange($event)" (onExporting)="onExporting($event)"
+                (onToolbarPreparing)="onErrorToolbar($event)">
+                <dxo-paging [enabled]="true"></dxo-paging>
+                <dxo-pager [showInfo]="true" infoText="Page {0} of {1} ({2} items)"></dxo-pager>
+                <dxo-header-filter [visible]="true"></dxo-header-filter>
+                <dxo-selection mode="multiple" showCheckBoxesMode="always" [value]="true"></dxo-selection>
+                <dxi-column dataField="version"></dxi-column>
+                <dxi-column dataField="aotName" [allowHeaderFiltering]="false"></dxi-column>
+                <dxi-column dataField="elementGroup"></dxi-column>
+                <dxi-column dataField="objectType"></dxi-column>
+                <dxi-column dataField="objectName"></dxi-column>
+                <dxi-column dataField="componentName" [allowHeaderFiltering]="false"></dxi-column>
+                <dxi-column dataField="moniker"></dxi-column>
+                <dxi-column dataField="errorDetails" [allowHeaderFiltering]="false"> </dxi-column>
+                <div *dxTemplate="let data of 'afterButtons'">
+                  <button type="button" style=" border-color: #115DA9 !important;border-right: none;padding: 0.2rem; margin: 5px 0px;"
+                    class="btn upgradebutton notyetClicked" (click)="StatusSubmit()">Submit</button>
+                </div>
+                
+                <dxo-export [enabled]="true" [allowExportSelectedData]="true"></dxo-export>
+              </dx-data-grid>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for upload error xml file -->
+  <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modalxml"
+    data-target="#Modalxml">Modal</button>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="Modalxml" tabindex="-1" role="dialog"
+    aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-height: 80vh;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="h5 mb-2 fontt-16B">Upload Error Xml</h1>
+        </div>
+        <div class="modal-body">
+          <app-upload-error-xml (emitxmlresponse)="getxmlresponse($event)"></app-upload-error-xml>
+          <button type="submit" class="btn btn-ms btn-outline-primary float-right" data-dismiss="modal">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- modal for upload content repository file -->
+  <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal"
+    data-target="#RepoModal">Modal</button>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="RepoModal" tabindex="-1" role="dialog"
+    aria-labelledby="ModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" style="max-height: 80vh;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="h5 mb-2 fontt-16B">Upload Content Repository
+            <!-- <img class="info-icon" src="assets/images/info-icon.svg" alt="info icon"
+                  title="Click here to download template for uploading repository content" (click)="downloadTemplate()"/> -->
+                </h1>
+                <button type="submit" class="btn btn-ms btn-outline-primary float-right" title="Click here to download template for uploading repository content" (click)="downloadTemplate()">
+                  <i class="fa fa-download"></i> Template</button>
+          
+        </div>
+        <div class="modal-body">
+          <app-upload-content-repo (emitreporesponse)="getRepoResponse()" (toggleRepository)="toggleRepository()"></app-upload-content-repo>
+          <button type="submit" class="btn btn-ms btn-outline-primary float-right" data-dismiss="modal" (click)="toggleRepository()">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- model for codeupgrade input objects -->
+  <button type="button" [hidden]=true class="btn btn-primary text-uppercase" data-toggle="modal" data-target="#AddModal"
+    #AddModal>Modal</button>
+
+  <div class="modal fade Product_modal" data-backdrop="static" id="AddModal" #AzureModal tabindex="-1" role="dialog"
+    aria-labelledby="instructionModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal1 modal-lg modal-dialog-centered">
+      <div class="modal-content modal1">
+        <div class="modal-header">
+          <h5 class="modal-title">Pass the Objects for Upgrade</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="closeAOTModel()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body modal-body1">
+          <table style="width: 100%;" striped="true" [formGroup]="ModelObjectsform" (ngSubmit)="submitModelObjects()">
+            <thead>
+              <tr>
+                <th style="width: 20%;">Object Type</th>
+                <th>Select All
+                  <input class="form-check-input" formControlName="checkAll" type="checkbox" [checked]="selectedObjTypes.length == ElementGroup.length"
+                    (change)="changeCheckforAll($event)">
+                </th>
+                <th>AOt Names</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let e of ElementGroup">
+                <td>{{e.type}}
+                </td>
+                <td>
+                  <div class="form-group form-check">
+                    <input class="form-check-input" formControlName="cb" type="checkbox" [checked]="disable == true"
+                      (change)="changeCheck(e,$event)">
+                  </div>
+                </td>
+                <td>
+                  <textarea class="form-control" placeholder="aotName1,aotName2,aotName3,..."
+                    [readonly]="e.disabletext" formControlName="aotNames" id="objects" rows="2"
+                    (input)="getAll(e, aotName.value)" #aotName></textarea>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer row">
+          <button type="submit" class="btn btn-ms btn-outline-primary float-right"
+            (click)="closeAOTModel()">Clear</button>
+          <button type="submit" class="btn btn-ms btn-outline-primary float-right" (click)="submitModelObjects()"
+            data-dismiss="modal">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,192 @@
+.notClicked {
+    width: 120px !important;
+    height: 34px !important;
+    border-color: #115DA9 !important;
+    border: 1.5px solid !important;
+    color: #115DA9 !important;
+  }
+
+.notyetClicked {
+    width: 150px !important;
+    height: 34px !important;
+    border-color: #115DA9 !important;
+    border: 1.5px solid !important;
+    color: #115DA9 !important;
+  }
+  .dx-tabs-expanded {
+    display:flex!important;
+  }
+  .dx-tabs {
+    border: none;
+    background: #ffff;
+}
+ .dx-tab.dx-tab-selected {
+  border-bottom: 2px solid #EFB129;
+    color: #333943;
+    font-weight: bold;
+}
+  .notexistobjects{
+    width: 170px !important;
+    height: 34px !important;
+    border-color: #115DA9 !important;
+    border: 1.5px solid !important;
+    color: #115DA9 !important;
+  }
+
+  .codeCorrectionBtn{
+    width: 160px !important;
+    height: 34px !important;
+    border-color: #115DA9 !important;
+    border: 1.5px solid !important;
+    color: #115DA9 !important;
+  }
+
+  .addButton {
+    width: 54px !important;
+    height: 34px !important;
+    border-color: #115DA9 !important;
+    border: 1.5px solid !important;
+    color: #115DA9 !important;
+  }
+
+.headerButton{
+  margin-left: 10px;
+}
+
+.manualClicked{
+    border-right:none;
+}
+
+.automaticbutton {
+  // margin-left: 0px !important;
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+  border-color: #115DA9 !important;
+  border: 1.5px solid !important;
+}
+
+.upgradebutton{
+  background-color:#04CE88 !important;
+  color: white !important;
+}
+
+.buttonClicked {
+  width: 120px !important;
+  height: 34px !important;
+  background-color: #04CE88 !important;
+  border: 1.5px #115DA9 solid !important;
+  //  border:none;
+  color: white !important;
+  border-color: #115DA9 !important;
+}
+
+.upgradebutton:disabled{
+  background-color:#038f5e !important;
+}
+
+.manualButton {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  border-color: #115DA9 !important;
+  border: 1.5px solid !important;
+}
+
+.dx-button-mode-contained.dx-button-success {
+  background-color: #04CE88 !important;
+}
+
+.dx-checkbox-checked .dx-checkbox-icon:before{
+  color : white;
+  background-color: #04CE88;
+}
+.dx-datagrid-checkbox-size .dx-checkbox-icon{
+  background: white;
+}
+
+.status-icons{
+  text-align: right;
+  padding-right: 40px;
+  //font-size:large;
+}
+
+.status-success{
+  color:green;
+}
+
+.status-failed {
+  color:red;
+}
+
+.dx-toolbar{
+  color: white;
+}
+.fa {
+  margin-left: -14px;
+  margin-right: 5px;
+}
+.button {
+  width: 150px !important;
+  height: 34px !important;
+  background-color: #04CE88 !important;
+  border: 1.5px #115DA9 solid !important;
+  color: white !important;
+  border-color: #115DA9 !important;
+}
+.blu_text{
+  color: #005AAB;
+  cursor: pointer;
+  margin-left: -10px;
+}
+.validationstyle{
+  font-size: 14px;
+  color: red;
+  margin-top: -12px;
+  margin-bottom: 7px;
+}
+.info-icon{
+  // cursor: pointer;
+  margin-top: -5px;
+}
+.fa-times-circle, .fa-times{
+  color: #115DA9;
+}
+.form-check-input{
+  width: 80px;
+  height: 18px;
+}
+
+.modal1 {
+    /* 80% of window height */
+    height: 74%;
+}
+
+.modal-body1 {
+    /* 100% = dialog height, 120px = header + footer */
+    max-height: calc(100% - 120px);
+    overflow-y: scroll;
+}
+.dx-header-filter{
+  color: white !important;
+}
+.modal-footer{
+  padding-top: 10px !important;
+}
+.upload-icon{
+  padding-left: 2px;
+  width:18px;
+}
+.downloadIcon{
+  color: white !important;
+  position: absolute;
+  top: 3.8rem;
+  right: 6.8rem;
+  z-index: 1001;
+}
+.form-check-label{
+  margin-left: 38px;
+  margin-top: 3px;
+  margin-bottom: 5px;
+}
+#codecorrection{
+  padding-left: 55px;
+}
